@@ -6,31 +6,28 @@ venv/
 __pycache__/
 *.pyc
 *.pyo
-*.pyd
-.Python
 *.egg-info/
-dist/
-build/
 
-# Database
+# Database & Persistence
 *.db
+chroma_db/
 
-# ONNX models (large, cached locally for Docker builds)
-onnx_models/
+# Git
+.git/
+.gitignore
 
 # IDE
 .vscode/
 .idea/
-*.swp
-*.swo
 
 # OS
 Thumbs.db
 Desktop.ini
 .DS_Store
 
-# Ngrok
-ngrok.exe
-
 # Gemini
 .gemini/
+
+# Docker (no need to copy these into the image)
+Dockerfile
+docker-compose.yml

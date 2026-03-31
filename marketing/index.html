@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Voice Bot | AI Front Desk Showcase</title>
+    <meta name="description"
+        content="A modern static showcase for an AI hospital assistant built with FastAPI, Gemini, ChromaDB, Twilio workflows, and patient verification.">
+    <meta name="theme-color" content="#f5efe4">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='18' fill='%230b6b70'/><path d='M32 15v34M19 28h26' stroke='%23fffdf8' stroke-width='6' stroke-linecap='round'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <div class="page-shell">
+        <div class="ambient ambient-one"></div>
+        <div class="ambient ambient-two"></div>
+
+        <header class="site-header">
+            <a class="brand" href="#top" aria-label="Hospital Voice Bot home">
+                <span class="brand-mark"><span></span></span>
+                <span class="brand-copy">
+                    <strong>Hospital Voice Bot</strong>
+                    <small>AI front desk showcase</small>
+                </span>
+            </a>
+
+            <nav class="site-nav" aria-label="Primary navigation">
+                <a href="#overview">Overview</a>
+                <a href="#journey">How It Works</a>
+                <a href="#stack">Tech Stack</a>
+                <a href="#use-cases">Use Cases</a>
+                <a href="#launch">Launch Plan</a>
+            </nav>
+
+            <a class="header-cta" href="#launch">Deploy Static Version</a>
+        </header>
+
+        <main id="top">
+            <section class="section hero">
+                <div class="hero-copy reveal">
+                    <div class="eyebrow">
+                        Product-style presentation for your hospital AI assistant
+                    </div>
+                    <h1>
+                        Show the system like a
+                        <span>sellable healthcare product</span>
+                        instead of a fragile public demo.
+                    </h1>
+                    <p class="hero-text">
+                        This landing page presents the project as a polished digital product: what it does, how it
+                        works, what technology powers it, and where it can create value. It is designed for static
+                        hosting, so you can showcase the work without exposing the Twilio-dependent live workflow.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#overview">Explore the platform</a>
+                        <a class="button button-secondary" href="#stack">Inspect the architecture</a>
+                    </div>
+
+                    <div class="hero-metrics">
+                        <article class="metric-card">
+                            <span class="metric-value" data-count="2">2</span>
+                            <span class="metric-label">patient channels: web chat and voice</span>
+                        </article>
+                        <article class="metric-card">
+                            <span class="metric-value" data-count="7">7</span>
+                            <span class="metric-label">tool-aware workflows in the assistant layer</span>
+                        </article>
+                        <article class="metric-card">
+                            <span class="metric-value" data-count="6">6</span>
+                            <span class="metric-label">FAQ documents indexed for retrieval grounding</span>
+                        </article>
+                        <article class="metric-card">
+                            <span class="metric-value" data-count="30">30</span>
+                            <span class="metric-label">minute session window for short-lived context</span>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="hero-visual reveal">
+                    <div class="product-frame">
+                        <div class="frame-topbar">
+                            <span></span><span></span><span></span>
+                        </div>
+
+                        <div class="frame-body">
+                            <div class="mock-pane">
+                                <div class="mock-tag">Public showcase mode</div>
+                                <h2>AI hospital assistant with voice, chat, retrieval, and action tools.</h2>
+                                <p>
+                                    Ready to explain appointment booking, doctor search, report lookup, billing help,
+                                    OTP-based patient access, and safe response handling in one view.
+                                </p>
+                                <div class="mock-grid">
+                                    <div class="mock-card soft-blue">
+                                        <h3>Patient-facing</h3>
+                                        <p>Answer FAQs, guide visitors, surface departments, and reduce front desk load.
+                                        </p>
+                                    </div>
+                                    <div class="mock-card soft-amber">
+                                        <h3>Authenticated</h3>
+                                        <p>Unlock report, appointment, and billing actions only after verification.</p>
+                                    </div>
+                                    <div class="mock-card soft-mint">
+                                        <h3>Grounded</h3>
+                                        <p>Use FAQ retrieval plus tool results instead of freeform hallucinated output.
+                                        </p>
+                                    </div>
+                                    <div class="mock-card soft-slate">
+                                        <h3>Operational</h3>
+                                        <p>Track sessions, measure latency, and keep a clear boundary on medical advice.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <aside class="signal-panel">
+                                <div class="signal-chip">FastAPI</div>
+                                <div class="signal-chip">Gemini</div>
+                                <div class="signal-chip">ChromaDB</div>
+                                <div class="signal-chip">Twilio</div>
+                                <div class="signal-chip">SQLite</div>
+                                <div class="signal-chip">OTP flow</div>
+                                <div class="signal-chip">WebSocket chat</div>
+                                <div class="signal-chip">Safety guardrails</div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section statement reveal">
+                <div class="statement-card">
+                    <p class="statement-kicker">Why this version makes sense</p>
+                    <p class="statement-copy">
+                        The live assistant depends on telephony services and real-time infrastructure. For a public
+                        portfolio or product page, a static showcase is the cleaner move: easier to deploy, safer to
+                        share, faster to load, and much better for explaining the real value of the system.
+                    </p>
+                </div>
+            </section>
+
+            <section class="section" id="overview">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Overview</p>
+                    <h2>What this product is built to handle</h2>
+                    <p>
+                        The project acts like a digital hospital front desk that can talk, listen, guide, verify, and
+                        execute operational tasks without pretending to be a doctor.
+                    </p>
+                </div>
+
+                <div class="feature-grid">
+                    <article class="feature-card reveal">
+                        <span class="feature-index">01</span>
+                        <h3>Hospital information at first contact</h3>
+                        <p>
+                            Patients can ask about OPD timings, departments, insurance, visiting hours, and emergency
+                            service details through conversational chat or voice entry points.
+                        </p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-index">02</span>
+                        <h3>Verified patient workflows</h3>
+                        <p>
+                            After OTP verification, the assistant can move beyond public FAQs and help with appointment
+                            history, billing summaries, and report status checks tied to patient records.
+                        </p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-index">03</span>
+                        <h3>Retrieval-grounded conversations</h3>
+                        <p>
+                            FAQ documents are indexed in ChromaDB so the assistant can answer from known hospital
+                            context instead of improvising facts when visitors ask operational questions.
+                        </p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-index">04</span>
+                        <h3>Tool calling for real actions</h3>
+                        <p>
+                            The LLM is not only a text generator. It can trigger structured tools for doctor lookup,
+                            appointment booking, appointment cancellation, lab report checks, and billing retrieval.
+                        </p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-index">05</span>
+                        <h3>Voice-ready service design</h3>
+                        <p>
+                            The original project supports Twilio-based incoming calls, speech loops, and barge-in,
+                            which makes the concept suitable for reception automation beyond the browser.
+                        </p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-index">06</span>
+                        <h3>Guardrails for a sensitive domain</h3>
+                        <p>
+                            The assistant avoids diagnosis and treatment advice, protects guest access boundaries, and
+                            applies response safety checks before returning user-facing output.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section process-section" id="journey">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">How It Works</p>
+                    <h2>From patient message to safe, useful response</h2>
+                    <p>
+                        The assistant pipeline combines session state, retrieval, LLM reasoning, tool execution, and
+                        final response screening in a compact workflow.
+                    </p>
+                </div>
+
+                <div class="process-layout">
+                    <div class="process-rail reveal" role="tablist" aria-label="Assistant workflow steps">
+                        <button class="process-step active" type="button" data-stage="0" aria-selected="true">
+                            <span>Step 1</span>
+                            <strong>Capture intent</strong>
+                        </button>
+                        <button class="process-step" type="button" data-stage="1" aria-selected="false">
+                            <span>Step 2</span>
+                            <strong>Ground the question</strong>
+                        </button>
+                        <button class="process-step" type="button" data-stage="2" aria-selected="false">
+                            <span>Step 3</span>
+                            <strong>Execute the right action</strong>
+                        </button>
+                        <button class="process-step" type="button" data-stage="3" aria-selected="false">
+                            <span>Step 4</span>
+                            <strong>Return a safe reply</strong>
+                        </button>
+                    </div>
+
+                    <div class="process-panels reveal">
+                        <article class="process-panel active" data-panel="0">
+                            <p class="panel-kicker">Session-aware entry</p>
+                            <h3>User message arrives through chat or voice flow</h3>
+                            <p>
+                                A new or existing session is loaded first. That gives the system enough context to know
+                                whether the user is a guest or a verified patient before deciding what it is allowed to
+                                do next.
+                            </p>
+                            <ul>
+                                <li>Tracks session identity and user type.</li>
+                                <li>Keeps short conversation history for continuity.</li>
+                                <li>Checks user input safety before downstream processing.</li>
+                            </ul>
+                        </article>
+
+                        <article class="process-panel" data-panel="1" hidden>
+                            <p class="panel-kicker">Knowledge retrieval</p>
+                            <h3>Relevant FAQ context is pulled from the hospital knowledge base</h3>
+                            <p>
+                                The RAG layer searches indexed FAQ chunks so operational answers stay tied to actual
+                                hospital information such as timings, departments, insurance, and visitor guidance.
+                            </p>
+                            <ul>
+                                <li>Uses ChromaDB retrieval over markdown FAQ documents.</li>
+                                <li>Returns context chunks with relevance scoring.</li>
+                                <li>Restricts content by access level when required.</li>
+                            </ul>
+                        </article>
+
+                        <article class="process-panel" data-panel="2" hidden>
+                            <p class="panel-kicker">LLM plus tools</p>
+                            <h3>The model can answer directly or call structured backend tools</h3>
+                            <p>
+                                If the request needs a concrete system action, the LLM emits tool calls instead of
+                                guessing. Those tools route into appointment, department, report, doctor, and billing
+                                workflows backed by the database.
+                            </p>
+                            <ul>
+                                <li>Gemini handles intent understanding and tool selection.</li>
+                                <li>Tool router enforces guest versus verified access rules.</li>
+                                <li>Database-backed actions return structured results for final phrasing.</li>
+                            </ul>
+                        </article>
+
+                        <article class="process-panel" data-panel="3" hidden>
+                            <p class="panel-kicker">Delivery layer</p>
+                            <h3>The final response is checked and delivered in natural language</h3>
+                            <p>
+                                After tool output is converted into a patient-friendly response, the system runs a final
+                                safety pass to keep advice boundaries intact and redact or limit sensitive details when
+                                needed.
+                            </p>
+                            <ul>
+                                <li>Rejects unsafe medical-advice style behavior.</li>
+                                <li>Protects guest views from sensitive data exposure.</li>
+                                <li>Supports spoken output in the full voice-enabled version.</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section scenario-section">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Experience Modes</p>
+                    <h2>Three ways the assistant creates value</h2>
+                    <p>
+                        The system is designed as a layered service experience, starting with simple guidance and
+                        expanding into verified operational support.
+                    </p>
+                </div>
+
+                <div class="scenario-shell reveal">
+                    <div class="scenario-tabs" role="tablist" aria-label="Experience modes">
+                        <button class="scenario-tab active" type="button" data-tab="guest" aria-selected="true">Guest
+                            access</button>
+                        <button class="scenario-tab" type="button" data-tab="verified" aria-selected="false">Verified
+                            patient</button>
+                        <button class="scenario-tab" type="button" data-tab="voice" aria-selected="false">Voice
+                            workflow</button>
+                    </div>
+
+                    <div class="scenario-panels">
+                        <article class="scenario-panel active" data-scenario="guest">
+                            <div>
+                                <p class="panel-kicker">Public hospital support</p>
+                                <h3>Answer the questions a front desk receives all day</h3>
+                                <p>
+                                    Ideal for website visitors who need quick hospital guidance before they commit to a
+                                    call, visit, or login flow.
+                                </p>
+                                <ul>
+                                    <li>OPD timings, departments, insurance, directions, visiting hours.</li>
+                                    <li>Doctor and department discovery without exposing private patient data.</li>
+                                    <li>Clear prompts that guide users toward verified access when needed.</li>
+                                </ul>
+                            </div>
+                            <div class="dialogue-card">
+                                <p class="dialogue-role">Sample prompt</p>
+                                <p>"What departments do you have and when is OPD open?"</p>
+                                <p class="dialogue-role">Assistant response style</p>
+                                <p>
+                                    Structured, concise, and grounded in hospital FAQ content rather than invented
+                                    claims.
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="scenario-panel" data-scenario="verified" hidden>
+                            <div>
+                                <p class="panel-kicker">Authenticated service layer</p>
+                                <h3>Move from information to patient-specific action</h3>
+                                <p>
+                                    Once the patient verifies through OTP, the assistant can act on their behalf across
+                                    appointment, report, and billing workflows.
+                                </p>
+                                <ul>
+                                    <li>Book, cancel, or list appointments.</li>
+                                    <li>Check lab report readiness and result state.</li>
+                                    <li>Surface billing summaries in a conversational format.</li>
+                                </ul>
+                            </div>
+                            <div class="dialogue-card">
+                                <p class="dialogue-role">Sample prompt</p>
+                                <p>"Book me with the cardiologist tomorrow morning."</p>
+                                <p class="dialogue-role">System behavior</p>
+                                <p>
+                                    The model decides whether to call search or booking tools and then turns the result
+                                    into a natural language confirmation.
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="scenario-panel" data-scenario="voice" hidden>
+                            <div>
+                                <p class="panel-kicker">Telephony-ready concept</p>
+                                <h3>Extend the same assistant into incoming hospital phone calls</h3>
+                                <p>
+                                    The broader architecture supports Twilio voice handling so the experience can move
+                                    beyond web chat into a reception or helpline channel.
+                                </p>
+                                <ul>
+                                    <li>Speech-to-text and text-to-speech loop.</li>
+                                    <li>Auto-login for known callers where applicable.</li>
+                                    <li>Barge-in support for more natural phone interactions.</li>
+                                </ul>
+                            </div>
+                            <div class="dialogue-card">
+                                <p class="dialogue-role">Public showcase note</p>
+                                <p>
+                                    This static deployment intentionally explains the voice workflow without exposing a
+                                    live Twilio demo on the internet.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section stack-section" id="stack">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Tech Stack</p>
+                    <h2>The real stack behind the product story</h2>
+                    <p>
+                        This is not generic landing-page fluff. The sections below reflect the actual structure already
+                        present in the project.
+                    </p>
+                </div>
+
+                <div class="stack-grid">
+                    <article class="stack-card reveal">
+                        <p class="stack-label">Experience layer</p>
+                        <h3>Browser and channel interface</h3>
+                        <ul>
+                            <li>Static frontend written in HTML, CSS, and JavaScript.</li>
+                            <li>Web chat client built around WebSocket messaging.</li>
+                            <li>Browser speech features for voice input and spoken responses.</li>
+                            <li>Twilio-compatible voice architecture for phone support.</li>
+                        </ul>
+                    </article>
+
+                    <article class="stack-card reveal">
+                        <p class="stack-label">Application layer</p>
+                        <h3>FastAPI orchestration and business logic</h3>
+                        <ul>
+                            <li>FastAPI backend with routers for chat, auth, and voice.</li>
+                            <li>Session store and orchestrator controlling the request flow.</li>
+                            <li>Tool router for appointments, reports, doctor search, and billing.</li>
+                            <li>Health and metrics endpoints for runtime visibility.</li>
+                        </ul>
+                    </article>
+
+                    <article class="stack-card reveal">
+                        <p class="stack-label">Intelligence layer</p>
+                        <h3>Retrieval, reasoning, and controlled action</h3>
+                        <ul>
+                            <li>Google Gemini for conversation and tool calling.</li>
+                            <li>ChromaDB retrieval over hospital FAQ documents.</li>
+                            <li>Prompt-level role guidance and restricted capabilities.</li>
+                            <li>Response safety checks before returning output to patients.</li>
+                        </ul>
+                    </article>
+
+                    <article class="stack-card reveal">
+                        <p class="stack-label">Data layer</p>
+                        <h3>Operational hospital data</h3>
+                        <ul>
+                            <li>SQLite with SQLAlchemy for seeded mock hospital data.</li>
+                            <li>Doctors, departments, patients, appointments, lab reports, and billing records.</li>
+                            <li>OTP-based verification for gated patient workflows.</li>
+                            <li>Structured audit and metrics support in the backend.</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div class="architecture-board reveal">
+                    <article>
+                        <span>Client layer</span>
+                        <strong>Web chat and voice entry points</strong>
+                        <p>Patients begin through browser chat or telephony interaction.</p>
+                    </article>
+                    <article>
+                        <span>Control layer</span>
+                        <strong>Orchestrator, sessions, guardrails</strong>
+                        <p>Requests are routed, checked, and enriched with session context.</p>
+                    </article>
+                    <article>
+                        <span>Knowledge layer</span>
+                        <strong>RAG plus LLM tool calling</strong>
+                        <p>Answers are grounded, and structured actions are delegated to tools.</p>
+                    </article>
+                    <article>
+                        <span>Execution layer</span>
+                        <strong>Appointments, reports, doctor search, billing</strong>
+                        <p>Backend tools access hospital data and return results for final phrasing.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="use-cases">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Use Cases</p>
+                    <h2>Where this can be positioned and sold</h2>
+                    <p>
+                        The product story can be adapted for hospital groups, specialty clinics, diagnostic centers, or
+                        internal patient support teams.
+                    </p>
+                </div>
+
+                <div class="use-case-grid">
+                    <article class="use-case-card reveal">
+                        <h3>Hospital websites</h3>
+                        <p>Answer visitor questions instantly and capture intent before the visitor drops off.</p>
+                    </article>
+
+                    <article class="use-case-card reveal">
+                        <h3>Reception load reduction</h3>
+                        <p>Automate high-volume repetitive questions so staff can focus on edge cases and in-person care.
+                        </p>
+                    </article>
+
+                    <article class="use-case-card reveal">
+                        <h3>After-hours patient support</h3>
+                        <p>Keep guidance available even when the desk is closed, while preserving medical-safety
+                            boundaries.</p>
+                    </article>
+
+                    <article class="use-case-card reveal">
+                        <h3>Appointment conversion</h3>
+                        <p>Help patients discover the right department or doctor, then continue into booking workflows.
+                        </p>
+                    </article>
+
+                    <article class="use-case-card reveal">
+                        <h3>Lab and billing self-service</h3>
+                        <p>Reduce friction for verified users who only need status visibility, not a human callback.</p>
+                    </article>
+
+                    <article class="use-case-card reveal">
+                        <h3>Portfolio and sales demos</h3>
+                        <p>Use this landing page as a clean way to pitch the capability before a production rollout.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section launch-section" id="launch">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">Launch Plan</p>
+                    <h2>How to present it now and how to evolve it later</h2>
+                    <p>
+                        The current recommendation is to ship this as a static showcase first, then reconnect the live
+                        assistant only when telephony and runtime services are ready again.
+                    </p>
+                </div>
+
+                <div class="launch-grid">
+                    <article class="launch-card launch-card-primary reveal">
+                        <p class="panel-kicker">Best immediate move</p>
+                        <h3>Static product site</h3>
+                        <p>
+                            Host the `marketing/` directory as a static site. Use this page for outreach, portfolio
+                            visibility, founder decks, or product validation without ongoing telephony cost.
+                        </p>
+                        <ul>
+                            <li>No live API or Twilio dependency required.</li>
+                            <li>Fast global delivery and much lower maintenance.</li>
+                            <li>Better message control than exposing a half-working demo.</li>
+                        </ul>
+                    </article>
+
+                    <article class="launch-card reveal">
+                        <p class="panel-kicker">Later evolution</p>
+                        <h3>Full production assistant</h3>
+                        <p>
+                            Reconnect FastAPI, telephony, and database-backed workflows when you are ready to operate a
+                            real service environment with budgeted third-party usage.
+                        </p>
+                        <ul>
+                            <li>Move OTP and patient workflows behind secured production infrastructure.</li>
+                            <li>Use persistent databases and managed secret handling.</li>
+                            <li>Keep the public marketing site separate from the operational assistant.</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section faq-section reveal">
+                <div class="section-heading">
+                    <p class="eyebrow">FAQ</p>
+                    <h2>Questions this page already answers for a viewer</h2>
+                </div>
+
+                <div class="faq-list">
+                    <details open>
+                        <summary>What does the project actually do?</summary>
+                        <p>
+                            It combines hospital FAQ answering, doctor discovery, appointment operations, report
+                            lookup, billing support, and patient verification into a conversational assistant.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>Why not host the live demo directly?</summary>
+                        <p>
+                            The live experience depends on third-party voice infrastructure and runtime services. A
+                            static showcase is more reliable, easier to share, and more professional when some external
+                            pieces are currently offline.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>Can this still be sold like a product?</summary>
+                        <p>
+                            Yes. In fact, this format is stronger for positioning. It explains value, architecture,
+                            capabilities, and operational fit without forcing every visitor through a brittle live demo.
+                        </p>
+                    </details>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer reveal">
+            <div>
+                <p class="footer-eyebrow">Hospital Voice Bot</p>
+                <h2>Static-first showcase for an AI hospital assistant.</h2>
+            </div>
+            <div class="footer-actions">
+                <a class="button button-primary" href="#top">Back to top</a>
+                <a class="button button-secondary" href="#stack">Review the stack</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>

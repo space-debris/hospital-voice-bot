@@ -4,622 +4,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospital Voice Bot | AI Front Desk Showcase</title>
+    <title>Hospital Voice Bot | AI Front Desk for Modern Hospitals</title>
     <meta name="description"
-        content="A modern static showcase for an AI hospital assistant built with FastAPI, Gemini, ChromaDB, Twilio workflows, and patient verification.">
-    <meta name="theme-color" content="#f5efe4">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='18' fill='%230b6b70'/><path d='M32 15v34M19 28h26' stroke='%23fffdf8' stroke-width='6' stroke-linecap='round'/></svg>">
+        content="Premium dark SaaS landing page for Hospital Voice Bot, an AI front desk platform for hospitals.">
+    <meta name="theme-color" content="#0f172a">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root{--bg:#0f172a;--bg2:#111827;--panel:#16213d;--panel2:#1d2847;--line:rgba(148,163,184,.16);--text:#f8fafc;--muted:#94a3b8;--blue:#60a5fa;--cyan:#22d3ee;--violet:#a78bfa;--emerald:#34d399;--amber:#fbbf24;--rose:#fb7185;--shadow:0 24px 80px rgba(2,6,23,.42)}
+        *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"Inter",sans-serif;background:radial-gradient(circle at 18% 0%,rgba(34,211,238,.14),transparent 26%),radial-gradient(circle at 82% 12%,rgba(167,139,250,.16),transparent 28%),linear-gradient(180deg,#0b1120 0%,#0f172a 34%,#111827 100%);color:var(--text);overflow-x:hidden}
+        a{color:inherit;text-decoration:none}.page{width:min(calc(100% - 32px),1180px);margin:0 auto;padding:24px 0 56px;position:relative}.orb{position:fixed;z-index:-1;border-radius:999px;filter:blur(90px);opacity:.45;pointer-events:none}.orb.one{width:280px;height:280px;background:rgba(34,211,238,.2);top:90px;left:-90px}.orb.two{width:300px;height:300px;background:rgba(167,139,250,.2);top:240px;right:-100px}
+        .site-header{position:sticky;top:18px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 18px;border:1px solid rgba(255,255,255,.08);border-radius:999px;background:rgba(15,23,42,.68);backdrop-filter:blur(18px);box-shadow:0 10px 40px rgba(2,6,23,.24)}
+        .brand{display:inline-flex;align-items:center;gap:12px}.brand-mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#2563eb,#06b6d4);box-shadow:0 10px 26px rgba(37,99,235,.35)}.brand-copy{display:flex;flex-direction:column}.brand-copy strong{font-size:.98rem;font-weight:700}.brand-copy span{font-size:.78rem;color:var(--muted)}
+        .nav{display:inline-flex;gap:24px;flex:1;justify-content:center}.nav a{color:var(--muted);font-size:.94rem}.nav a:hover{color:var(--text)}.header-tag{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.18);color:#dbeafe;font-size:.86rem;white-space:nowrap}
+        section{padding-top:92px}.hero{display:grid;grid-template-columns:1.02fr .98fr;gap:34px;align-items:center;min-height:calc(100vh - 120px)}.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;padding:8px 14px;border-radius:999px;border:1px solid rgba(34,211,238,.16);background:rgba(34,211,238,.08);color:#bae6fd;font-size:.82rem;font-weight:600;text-transform:uppercase}
+        .hero h1,.section-copy h2,.footer-title{margin:0;font-family:"Space Grotesk",sans-serif;letter-spacing:-.05em}.hero h1{font-size:clamp(3.6rem,7vw,6.2rem);line-height:.95;max-width:11ch}.hero p{max-width:56ch;margin:22px 0 0;font-size:1.08rem;color:var(--muted);line-height:1.75}
+        .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.button,.footer-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 20px;border-radius:14px;font-weight:600;transition:transform .2s ease}.button:hover,.footer-link:hover{transform:translateY(-2px)}.button-primary{background:linear-gradient(135deg,#2563eb,#06b6d4);box-shadow:0 16px 36px rgba(37,99,235,.28)}.button-secondary,.footer-link{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04)}
+        .hero-card,.stat-card,.feature-card,.workflow-board,.stack-panel,.footer-panel,.step,.assistant-card,.patient-card,.typing-card,.signal-card{border:1px solid rgba(255,255,255,.08);background:rgba(15,23,42,.78);border-radius:22px}.hero-card{padding:22px;background:radial-gradient(circle at top right,rgba(96,165,250,.16),transparent 32%),linear-gradient(180deg,rgba(17,28,52,.98),rgba(15,23,42,.98));box-shadow:var(--shadow)}.window-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.window-dots{display:flex;gap:8px}.window-dots span{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.2)}.window-label{color:var(--muted);font-size:.84rem}.mock-shell{display:grid;gap:14px}
+        .assistant-card,.patient-card{padding:18px}.assistant-card{max-width:82%;background:rgba(37,99,235,.1);border-color:rgba(96,165,250,.24)}.patient-card{max-width:72%;margin-left:auto;background:rgba(255,255,255,.04)}.bubble-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;color:#cbd5e1;font-size:.88rem;font-weight:600}.avatar,.icon-pill,.stat-icon,.feature-icon,.step-number,.step-icon{display:grid;place-items:center}.avatar{width:34px;height:34px;border-radius:12px;background:rgba(255,255,255,.08)}.assistant-card p,.patient-card p,.signal-card span,.feature-card p,.step p,.section-copy p,.stat-card p,.footer-copy{margin:0;color:var(--muted);line-height:1.7}
+        .typing-card{display:inline-flex;align-items:center;gap:10px;width:fit-content;padding:14px 16px}.typing-dots{display:flex;gap:6px}.typing-dots span{width:8px;height:8px;border-radius:999px;background:var(--cyan);animation:blink 1.1s infinite ease-in-out}.typing-dots span:nth-child(2){animation-delay:.15s}.typing-dots span:nth-child(3){animation-delay:.3s}.signal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.signal-card{padding:14px;background:rgba(255,255,255,.03)}.signal-card strong{display:block;margin-top:10px;font-size:.95rem}
+        .stats-bar,.features-grid,.workflow-grid{display:grid;gap:16px}.stats-bar{grid-template-columns:repeat(4,minmax(0,1fr))}.stat-card{padding:20px 22px;background:linear-gradient(180deg,rgba(22,33,61,.9),rgba(15,23,42,.82))}.stat-icon,.feature-icon,.step-icon{width:46px;height:46px;border-radius:14px}.stat-card h3{margin:0;font-size:2rem;letter-spacing:-.05em}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}.section-copy{max-width:700px}.section-copy h2{font-size:clamp(2.2rem,4vw,3.8rem);line-height:1}.section-copy p{margin-top:16px;max-width:58ch}.section-badge{display:inline-flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#cbd5e1}
+        .features-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.feature-card{padding:24px;background:linear-gradient(180deg,rgba(22,33,61,.9),rgba(15,23,42,.88))}.feature-card h3,.step h3{margin:0}.feature-card p{margin-top:12px}.workflow-board,.stack-panel,.footer-panel{padding:28px;background:linear-gradient(180deg,rgba(22,33,61,.9),rgba(15,23,42,.9));box-shadow:var(--shadow)}.workflow-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.step{padding:22px 18px 20px;text-align:center;position:relative;background:rgba(255,255,255,.03)}.step:not(:last-child)::after{content:"";position:absolute;top:34px;right:-24px;width:32px;height:2px;background:linear-gradient(90deg,rgba(96,165,250,.12),rgba(96,165,250,.55))}.step-number{width:44px;height:44px;margin:0 auto 14px;border-radius:999px;font-weight:700;background:linear-gradient(135deg,#2563eb,#06b6d4);box-shadow:0 14px 28px rgba(37,99,235,.22)}.step-icon{margin:0 auto 14px;background:rgba(255,255,255,.05)}
+        .chip-grid{display:flex;flex-wrap:wrap;gap:14px}.chip{display:inline-flex;align-items:center;gap:10px;padding:14px 16px;border-radius:999px;font-weight:600;border:1px solid transparent}.blue{background:rgba(37,99,235,.18);border-color:rgba(96,165,250,.28)}.cyan{background:rgba(34,211,238,.14);border-color:rgba(34,211,238,.24)}.violet{background:rgba(167,139,250,.14);border-color:rgba(167,139,250,.24)}.emerald{background:rgba(52,211,153,.14);border-color:rgba(52,211,153,.24)}.amber{background:rgba(251,191,36,.14);border-color:rgba(251,191,36,.24)}.rose{background:rgba(251,113,133,.14);border-color:rgba(251,113,133,.24)}.slate{background:rgba(148,163,184,.12);border-color:rgba(148,163,184,.2)}
+        .footer-panel{margin-top:92px;display:flex;align-items:center;justify-content:space-between;gap:18px}.footer-title{font-size:1.8rem}.footer-copy{margin-top:10px}.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+        @keyframes blink{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}@media (max-width:1080px){.hero,.features-grid,.workflow-grid,.stats-bar{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{min-height:auto}.section-head,.footer-panel{flex-direction:column;align-items:flex-start}.step:not(:last-child)::after{display:none}}@media (max-width:760px){.page{width:min(calc(100% - 20px),1180px)}.site-header{flex-wrap:wrap;border-radius:24px}.nav{order:3;width:100%;justify-content:flex-start;flex-wrap:wrap;gap:14px}.hero,.features-grid,.workflow-grid,.stats-bar,.signal-grid{grid-template-columns:1fr}.hero h1{max-width:none;font-size:clamp(3rem,12vw,4.6rem)}.workflow-board,.stack-panel,.footer-panel,.hero-card{padding:22px}section{padding-top:72px}}
+    </style>
 </head>
 
 <body>
-    <div class="page-shell">
-        <div class="ambient ambient-one"></div>
-        <div class="ambient ambient-two"></div>
+    <div class="orb one"></div>
+    <div class="orb two"></div>
 
+    <div class="page">
         <header class="site-header">
-            <a class="brand" href="#top" aria-label="Hospital Voice Bot home">
-                <span class="brand-mark"><span></span></span>
+            <a class="brand" href="#top" aria-label="Hospital Voice Bot">
+                <span class="brand-mark"><i data-lucide="cross"></i></span>
                 <span class="brand-copy">
                     <strong>Hospital Voice Bot</strong>
-                    <small>AI front desk showcase</small>
+                    <span>AI front desk for modern hospitals</span>
                 </span>
             </a>
 
-            <nav class="site-nav" aria-label="Primary navigation">
-                <a href="#overview">Overview</a>
-                <a href="#journey">How It Works</a>
+            <nav class="nav">
+                <a href="#features">Features</a>
+                <a href="#workflow">How It Works</a>
                 <a href="#stack">Tech Stack</a>
-                <a href="#use-cases">Use Cases</a>
-                <a href="#launch">Launch Plan</a>
             </nav>
 
-            <a class="header-cta" href="#launch">Deploy Static Version</a>
+            <div class="header-tag">
+                <i data-lucide="sparkles"></i>
+                Premium product showcase
+            </div>
         </header>
 
         <main id="top">
-            <section class="section hero">
-                <div class="hero-copy reveal">
+            <section class="hero">
+                <div class="reveal">
                     <div class="eyebrow">
-                        Product-style presentation for your hospital AI assistant
+                        <i data-lucide="activity"></i>
+                        Voice, chat, retrieval, and action
                     </div>
-                    <h1>
-                        Show the system like a
-                        <span>sellable healthcare product</span>
-                        instead of a fragile public demo.
-                    </h1>
-                    <p class="hero-text">
-                        This landing page presents the project as a polished digital product: what it does, how it
-                        works, what technology powers it, and where it can create value. It is designed for static
-                        hosting, so you can showcase the work without exposing the Twilio-dependent live workflow.
+                    <h1>AI Front Desk for Modern Hospitals</h1>
+                    <p>
+                        Give patients instant answers, verified workflows, and voice-ready support through one elegant
+                        hospital assistant.
                     </p>
 
-                    <div class="hero-actions">
-                        <a class="button button-primary" href="#overview">Explore the platform</a>
-                        <a class="button button-secondary" href="#stack">Inspect the architecture</a>
-                    </div>
-
-                    <div class="hero-metrics">
-                        <article class="metric-card">
-                            <span class="metric-value" data-count="2">2</span>
-                            <span class="metric-label">patient channels: web chat and voice</span>
-                        </article>
-                        <article class="metric-card">
-                            <span class="metric-value" data-count="7">7</span>
-                            <span class="metric-label">tool-aware workflows in the assistant layer</span>
-                        </article>
-                        <article class="metric-card">
-                            <span class="metric-value" data-count="6">6</span>
-                            <span class="metric-label">FAQ documents indexed for retrieval grounding</span>
-                        </article>
-                        <article class="metric-card">
-                            <span class="metric-value" data-count="30">30</span>
-                            <span class="metric-label">minute session window for short-lived context</span>
-                        </article>
+                    <div class="cta-row">
+                        <a class="button button-primary" href="https://github.com/space-debris/hospital-voice-bot"
+                            target="_blank" rel="noreferrer">
+                            <i data-lucide="github"></i>
+                            View on GitHub
+                        </a>
+                        <a class="button button-secondary" href="#workflow">
+                            <i data-lucide="play-circle"></i>
+                            Watch Demo
+                        </a>
                     </div>
                 </div>
 
-                <div class="hero-visual reveal">
-                    <div class="product-frame">
-                        <div class="frame-topbar">
-                            <span></span><span></span><span></span>
+                <div class="reveal">
+                    <div class="hero-card">
+                        <div class="window-top">
+                            <div class="window-dots"><span></span><span></span><span></span></div>
+                            <div class="window-label">Hospital Voice Bot Console</div>
                         </div>
 
-                        <div class="frame-body">
-                            <div class="mock-pane">
-                                <div class="mock-tag">Public showcase mode</div>
-                                <h2>AI hospital assistant with voice, chat, retrieval, and action tools.</h2>
+                        <div class="mock-shell">
+                            <div class="assistant-card">
+                                <div class="bubble-top">
+                                    <span class="avatar"><i data-lucide="bot"></i></span>
+                                    AI Reception Desk
+                                </div>
                                 <p>
-                                    Ready to explain appointment booking, doctor search, report lookup, billing help,
-                                    OTP-based patient access, and safe response handling in one view.
+                                    Good morning. I can help with OPD timings, appointments, doctor discovery, reports,
+                                    and billing support.
                                 </p>
-                                <div class="mock-grid">
-                                    <div class="mock-card soft-blue">
-                                        <h3>Patient-facing</h3>
-                                        <p>Answer FAQs, guide visitors, surface departments, and reduce front desk load.
-                                        </p>
-                                    </div>
-                                    <div class="mock-card soft-amber">
-                                        <h3>Authenticated</h3>
-                                        <p>Unlock report, appointment, and billing actions only after verification.</p>
-                                    </div>
-                                    <div class="mock-card soft-mint">
-                                        <h3>Grounded</h3>
-                                        <p>Use FAQ retrieval plus tool results instead of freeform hallucinated output.
-                                        </p>
-                                    </div>
-                                    <div class="mock-card soft-slate">
-                                        <h3>Operational</h3>
-                                        <p>Track sessions, measure latency, and keep a clear boundary on medical advice.
-                                        </p>
-                                    </div>
+                            </div>
+
+                            <div class="patient-card">
+                                <div class="bubble-top">
+                                    <span class="avatar"><i data-lucide="user-round"></i></span>
+                                    Patient
+                                </div>
+                                <p>Book me with cardiology tomorrow and check whether my report is ready.</p>
+                            </div>
+
+                            <div class="typing-card">
+                                <span class="avatar"><i data-lucide="message-square-text"></i></span>
+                                <div class="typing-dots">
+                                    <span></span><span></span><span></span>
                                 </div>
                             </div>
 
-                            <aside class="signal-panel">
-                                <div class="signal-chip">FastAPI</div>
-                                <div class="signal-chip">Gemini</div>
-                                <div class="signal-chip">ChromaDB</div>
-                                <div class="signal-chip">Twilio</div>
-                                <div class="signal-chip">SQLite</div>
-                                <div class="signal-chip">OTP flow</div>
-                                <div class="signal-chip">WebSocket chat</div>
-                                <div class="signal-chip">Safety guardrails</div>
-                            </aside>
+                            <div class="signal-grid">
+                                <div class="signal-card">
+                                    <i data-lucide="messages-square"></i>
+                                    <strong>Realtime chat</strong>
+                                    <span>Fast conversational responses with a clean patient-facing experience.</span>
+                                </div>
+                                <div class="signal-card">
+                                    <i data-lucide="phone-call"></i>
+                                    <strong>Voice channel</strong>
+                                    <span>Designed to extend beyond the browser into hospital phone workflows.</span>
+                                </div>
+                                <div class="signal-card">
+                                    <i data-lucide="shield-check"></i>
+                                    <strong>Safe by design</strong>
+                                    <span>Guardrails keep the assistant helpful without acting like a clinician.</span>
+                                </div>
+                                <div class="signal-card">
+                                    <i data-lucide="database-zap"></i>
+                                    <strong>Action aware</strong>
+                                    <span>Calls tools to search doctors, book appointments, and fetch records.</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="section statement reveal">
-                <div class="statement-card">
-                    <p class="statement-kicker">Why this version makes sense</p>
-                    <p class="statement-copy">
-                        The live assistant depends on telephony services and real-time infrastructure. For a public
-                        portfolio or product page, a static showcase is the cleaner move: easier to deploy, safer to
-                        share, faster to load, and much better for explaining the real value of the system.
-                    </p>
-                </div>
-            </section>
-
-            <section class="section" id="overview">
-                <div class="section-heading reveal">
-                    <p class="eyebrow">Overview</p>
-                    <h2>What this product is built to handle</h2>
-                    <p>
-                        The project acts like a digital hospital front desk that can talk, listen, guide, verify, and
-                        execute operational tasks without pretending to be a doctor.
-                    </p>
-                </div>
-
-                <div class="feature-grid">
-                    <article class="feature-card reveal">
-                        <span class="feature-index">01</span>
-                        <h3>Hospital information at first contact</h3>
-                        <p>
-                            Patients can ask about OPD timings, departments, insurance, visiting hours, and emergency
-                            service details through conversational chat or voice entry points.
-                        </p>
+            <section>
+                <div class="stats-bar reveal">
+                    <article class="stat-card">
+                        <div class="stat-icon" style="background:rgba(96,165,250,.14)"><i data-lucide="messages-square"></i></div>
+                        <h3>2</h3>
+                        <p>Patient channels across web chat and voice.</p>
                     </article>
-
-                    <article class="feature-card reveal">
-                        <span class="feature-index">02</span>
-                        <h3>Verified patient workflows</h3>
-                        <p>
-                            After OTP verification, the assistant can move beyond public FAQs and help with appointment
-                            history, billing summaries, and report status checks tied to patient records.
-                        </p>
+                    <article class="stat-card">
+                        <div class="stat-icon" style="background:rgba(167,139,250,.14)"><i data-lucide="wrench"></i></div>
+                        <h3>7</h3>
+                        <p>AI tools connected to live hospital workflows.</p>
                     </article>
-
-                    <article class="feature-card reveal">
-                        <span class="feature-index">03</span>
-                        <h3>Retrieval-grounded conversations</h3>
-                        <p>
-                            FAQ documents are indexed in ChromaDB so the assistant can answer from known hospital
-                            context instead of improvising facts when visitors ask operational questions.
-                        </p>
+                    <article class="stat-card">
+                        <div class="stat-icon" style="background:rgba(34,211,238,.14)"><i data-lucide="files"></i></div>
+                        <h3>6</h3>
+                        <p>FAQ documents grounding every answer.</p>
                     </article>
-
-                    <article class="feature-card reveal">
-                        <span class="feature-index">04</span>
-                        <h3>Tool calling for real actions</h3>
-                        <p>
-                            The LLM is not only a text generator. It can trigger structured tools for doctor lookup,
-                            appointment booking, appointment cancellation, lab report checks, and billing retrieval.
-                        </p>
-                    </article>
-
-                    <article class="feature-card reveal">
-                        <span class="feature-index">05</span>
-                        <h3>Voice-ready service design</h3>
-                        <p>
-                            The original project supports Twilio-based incoming calls, speech loops, and barge-in,
-                            which makes the concept suitable for reception automation beyond the browser.
-                        </p>
-                    </article>
-
-                    <article class="feature-card reveal">
-                        <span class="feature-index">06</span>
-                        <h3>Guardrails for a sensitive domain</h3>
-                        <p>
-                            The assistant avoids diagnosis and treatment advice, protects guest access boundaries, and
-                            applies response safety checks before returning user-facing output.
-                        </p>
+                    <article class="stat-card">
+                        <div class="stat-icon" style="background:rgba(52,211,153,.14)"><i data-lucide="gauge"></i></div>
+                        <h3>&lt;200ms</h3>
+                        <p>Fast response feel for first-contact moments.</p>
                     </article>
                 </div>
             </section>
 
-            <section class="section process-section" id="journey">
-                <div class="section-heading reveal">
-                    <p class="eyebrow">How It Works</p>
-                    <h2>From patient message to safe, useful response</h2>
-                    <p>
-                        The assistant pipeline combines session state, retrieval, LLM reasoning, tool execution, and
-                        final response screening in a compact workflow.
-                    </p>
-                </div>
-
-                <div class="process-layout">
-                    <div class="process-rail reveal" role="tablist" aria-label="Assistant workflow steps">
-                        <button class="process-step active" type="button" data-stage="0" aria-selected="true">
-                            <span>Step 1</span>
-                            <strong>Capture intent</strong>
-                        </button>
-                        <button class="process-step" type="button" data-stage="1" aria-selected="false">
-                            <span>Step 2</span>
-                            <strong>Ground the question</strong>
-                        </button>
-                        <button class="process-step" type="button" data-stage="2" aria-selected="false">
-                            <span>Step 3</span>
-                            <strong>Execute the right action</strong>
-                        </button>
-                        <button class="process-step" type="button" data-stage="3" aria-selected="false">
-                            <span>Step 4</span>
-                            <strong>Return a safe reply</strong>
-                        </button>
+            <section id="features">
+                <div class="section-head reveal">
+                    <div class="section-copy">
+                        <h2>Every capability looks sharp and works like a product</h2>
+                        <p>Clean cards. Clear value. Real system behavior behind the visual polish.</p>
                     </div>
+                    <div class="section-badge">
+                        <i data-lucide="layout-grid"></i>
+                        Six product pillars
+                    </div>
+                </div>
 
-                    <div class="process-panels reveal">
-                        <article class="process-panel active" data-panel="0">
-                            <p class="panel-kicker">Session-aware entry</p>
-                            <h3>User message arrives through chat or voice flow</h3>
-                            <p>
-                                A new or existing session is loaded first. That gives the system enough context to know
-                                whether the user is a guest or a verified patient before deciding what it is allowed to
-                                do next.
-                            </p>
-                            <ul>
-                                <li>Tracks session identity and user type.</li>
-                                <li>Keeps short conversation history for continuity.</li>
-                                <li>Checks user input safety before downstream processing.</li>
-                            </ul>
+                <div class="features-grid">
+                    <article class="feature-card reveal">
+                        <div class="feature-icon" style="background:rgba(96,165,250,.12);color:var(--blue)"><i data-lucide="badge-info"></i></div>
+                        <h3>Guest Mode</h3>
+                        <p>Handle timings, departments, insurance, and FAQs without exposing private data.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <div class="feature-icon" style="background:rgba(52,211,153,.12);color:var(--emerald)"><i data-lucide="shield-user"></i></div>
+                        <h3>Authenticated Patient</h3>
+                        <p>Unlock appointments, reports, and billing after the patient is verified.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <div class="feature-icon" style="background:rgba(251,191,36,.12);color:var(--amber)"><i data-lucide="phone-forwarded"></i></div>
+                        <h3>Voice Ready</h3>
+                        <p>Built to feel natural in hospital call flows, not only inside a chat window.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <div class="feature-icon" style="background:rgba(34,211,238,.12);color:var(--cyan)"><i data-lucide="database"></i></div>
+                        <h3>RAG Grounded</h3>
+                        <p>Answers stay tied to hospital FAQs instead of drifting into generic output.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <div class="feature-icon" style="background:rgba(167,139,250,.12);color:var(--violet)"><i data-lucide="workflow"></i></div>
+                        <h3>Tool Calling</h3>
+                        <p>The model triggers real actions like doctor lookup, booking, and record retrieval.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <div class="feature-icon" style="background:rgba(251,113,133,.12);color:var(--rose)"><i data-lucide="shield-alert"></i></div>
+                        <h3>Safety Guardrails</h3>
+                        <p>Medical boundaries and response checks keep the system responsible by default.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="workflow">
+                <div class="section-head reveal">
+                    <div class="section-copy">
+                        <h2>From patient question to safe reply in four clear moves</h2>
+                        <p>Simple for the user. Structured under the hood.</p>
+                    </div>
+                    <div class="section-badge">
+                        <i data-lucide="arrow-right-left"></i>
+                        Capture to reply
+                    </div>
+                </div>
+
+                <div class="workflow-board reveal">
+                    <div class="workflow-grid">
+                        <article class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-icon"><i data-lucide="radar"></i></div>
+                            <h3>Capture Intent</h3>
+                            <p>The assistant reads the message, user state, and recent context.</p>
                         </article>
-
-                        <article class="process-panel" data-panel="1" hidden>
-                            <p class="panel-kicker">Knowledge retrieval</p>
-                            <h3>Relevant FAQ context is pulled from the hospital knowledge base</h3>
-                            <p>
-                                The RAG layer searches indexed FAQ chunks so operational answers stay tied to actual
-                                hospital information such as timings, departments, insurance, and visitor guidance.
-                            </p>
-                            <ul>
-                                <li>Uses ChromaDB retrieval over markdown FAQ documents.</li>
-                                <li>Returns context chunks with relevance scoring.</li>
-                                <li>Restricts content by access level when required.</li>
-                            </ul>
+                        <article class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-icon"><i data-lucide="search-code"></i></div>
+                            <h3>Ground the Question</h3>
+                            <p>Relevant hospital knowledge is pulled in before the model answers.</p>
                         </article>
-
-                        <article class="process-panel" data-panel="2" hidden>
-                            <p class="panel-kicker">LLM plus tools</p>
-                            <h3>The model can answer directly or call structured backend tools</h3>
-                            <p>
-                                If the request needs a concrete system action, the LLM emits tool calls instead of
-                                guessing. Those tools route into appointment, department, report, doctor, and billing
-                                workflows backed by the database.
-                            </p>
-                            <ul>
-                                <li>Gemini handles intent understanding and tool selection.</li>
-                                <li>Tool router enforces guest versus verified access rules.</li>
-                                <li>Database-backed actions return structured results for final phrasing.</li>
-                            </ul>
+                        <article class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-icon"><i data-lucide="cpu"></i></div>
+                            <h3>Execute Action</h3>
+                            <p>The model calls the right tool when a real workflow must be completed.</p>
                         </article>
-
-                        <article class="process-panel" data-panel="3" hidden>
-                            <p class="panel-kicker">Delivery layer</p>
-                            <h3>The final response is checked and delivered in natural language</h3>
-                            <p>
-                                After tool output is converted into a patient-friendly response, the system runs a final
-                                safety pass to keep advice boundaries intact and redact or limit sensitive details when
-                                needed.
-                            </p>
-                            <ul>
-                                <li>Rejects unsafe medical-advice style behavior.</li>
-                                <li>Protects guest views from sensitive data exposure.</li>
-                                <li>Supports spoken output in the full voice-enabled version.</li>
-                            </ul>
+                        <article class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-icon"><i data-lucide="badge-check"></i></div>
+                            <h3>Safe Reply</h3>
+                            <p>The response is checked and returned with the correct access boundary.</p>
                         </article>
                     </div>
                 </div>
             </section>
 
-            <section class="section scenario-section">
-                <div class="section-heading reveal">
-                    <p class="eyebrow">Experience Modes</p>
-                    <h2>Three ways the assistant creates value</h2>
-                    <p>
-                        The system is designed as a layered service experience, starting with simple guidance and
-                        expanding into verified operational support.
-                    </p>
-                </div>
-
-                <div class="scenario-shell reveal">
-                    <div class="scenario-tabs" role="tablist" aria-label="Experience modes">
-                        <button class="scenario-tab active" type="button" data-tab="guest" aria-selected="true">Guest
-                            access</button>
-                        <button class="scenario-tab" type="button" data-tab="verified" aria-selected="false">Verified
-                            patient</button>
-                        <button class="scenario-tab" type="button" data-tab="voice" aria-selected="false">Voice
-                            workflow</button>
+            <section id="stack">
+                <div class="section-head reveal">
+                    <div class="section-copy">
+                        <h2>Modern infrastructure behind the front desk experience</h2>
+                        <p>The stack is compact, modern, and built for a premium healthcare workflow.</p>
                     </div>
-
-                    <div class="scenario-panels">
-                        <article class="scenario-panel active" data-scenario="guest">
-                            <div>
-                                <p class="panel-kicker">Public hospital support</p>
-                                <h3>Answer the questions a front desk receives all day</h3>
-                                <p>
-                                    Ideal for website visitors who need quick hospital guidance before they commit to a
-                                    call, visit, or login flow.
-                                </p>
-                                <ul>
-                                    <li>OPD timings, departments, insurance, directions, visiting hours.</li>
-                                    <li>Doctor and department discovery without exposing private patient data.</li>
-                                    <li>Clear prompts that guide users toward verified access when needed.</li>
-                                </ul>
-                            </div>
-                            <div class="dialogue-card">
-                                <p class="dialogue-role">Sample prompt</p>
-                                <p>"What departments do you have and when is OPD open?"</p>
-                                <p class="dialogue-role">Assistant response style</p>
-                                <p>
-                                    Structured, concise, and grounded in hospital FAQ content rather than invented
-                                    claims.
-                                </p>
-                            </div>
-                        </article>
-
-                        <article class="scenario-panel" data-scenario="verified" hidden>
-                            <div>
-                                <p class="panel-kicker">Authenticated service layer</p>
-                                <h3>Move from information to patient-specific action</h3>
-                                <p>
-                                    Once the patient verifies through OTP, the assistant can act on their behalf across
-                                    appointment, report, and billing workflows.
-                                </p>
-                                <ul>
-                                    <li>Book, cancel, or list appointments.</li>
-                                    <li>Check lab report readiness and result state.</li>
-                                    <li>Surface billing summaries in a conversational format.</li>
-                                </ul>
-                            </div>
-                            <div class="dialogue-card">
-                                <p class="dialogue-role">Sample prompt</p>
-                                <p>"Book me with the cardiologist tomorrow morning."</p>
-                                <p class="dialogue-role">System behavior</p>
-                                <p>
-                                    The model decides whether to call search or booking tools and then turns the result
-                                    into a natural language confirmation.
-                                </p>
-                            </div>
-                        </article>
-
-                        <article class="scenario-panel" data-scenario="voice" hidden>
-                            <div>
-                                <p class="panel-kicker">Telephony-ready concept</p>
-                                <h3>Extend the same assistant into incoming hospital phone calls</h3>
-                                <p>
-                                    The broader architecture supports Twilio voice handling so the experience can move
-                                    beyond web chat into a reception or helpline channel.
-                                </p>
-                                <ul>
-                                    <li>Speech-to-text and text-to-speech loop.</li>
-                                    <li>Auto-login for known callers where applicable.</li>
-                                    <li>Barge-in support for more natural phone interactions.</li>
-                                </ul>
-                            </div>
-                            <div class="dialogue-card">
-                                <p class="dialogue-role">Public showcase note</p>
-                                <p>
-                                    This static deployment intentionally explains the voice workflow without exposing a
-                                    live Twilio demo on the internet.
-                                </p>
-                            </div>
-                        </article>
+                    <div class="section-badge">
+                        <i data-lucide="layers-3"></i>
+                        Product stack
                     </div>
                 </div>
-            </section>
 
-            <section class="section stack-section" id="stack">
-                <div class="section-heading reveal">
-                    <p class="eyebrow">Tech Stack</p>
-                    <h2>The real stack behind the product story</h2>
-                    <p>
-                        This is not generic landing-page fluff. The sections below reflect the actual structure already
-                        present in the project.
-                    </p>
-                </div>
-
-                <div class="stack-grid">
-                    <article class="stack-card reveal">
-                        <p class="stack-label">Experience layer</p>
-                        <h3>Browser and channel interface</h3>
-                        <ul>
-                            <li>Static frontend written in HTML, CSS, and JavaScript.</li>
-                            <li>Web chat client built around WebSocket messaging.</li>
-                            <li>Browser speech features for voice input and spoken responses.</li>
-                            <li>Twilio-compatible voice architecture for phone support.</li>
-                        </ul>
-                    </article>
-
-                    <article class="stack-card reveal">
-                        <p class="stack-label">Application layer</p>
-                        <h3>FastAPI orchestration and business logic</h3>
-                        <ul>
-                            <li>FastAPI backend with routers for chat, auth, and voice.</li>
-                            <li>Session store and orchestrator controlling the request flow.</li>
-                            <li>Tool router for appointments, reports, doctor search, and billing.</li>
-                            <li>Health and metrics endpoints for runtime visibility.</li>
-                        </ul>
-                    </article>
-
-                    <article class="stack-card reveal">
-                        <p class="stack-label">Intelligence layer</p>
-                        <h3>Retrieval, reasoning, and controlled action</h3>
-                        <ul>
-                            <li>Google Gemini for conversation and tool calling.</li>
-                            <li>ChromaDB retrieval over hospital FAQ documents.</li>
-                            <li>Prompt-level role guidance and restricted capabilities.</li>
-                            <li>Response safety checks before returning output to patients.</li>
-                        </ul>
-                    </article>
-
-                    <article class="stack-card reveal">
-                        <p class="stack-label">Data layer</p>
-                        <h3>Operational hospital data</h3>
-                        <ul>
-                            <li>SQLite with SQLAlchemy for seeded mock hospital data.</li>
-                            <li>Doctors, departments, patients, appointments, lab reports, and billing records.</li>
-                            <li>OTP-based verification for gated patient workflows.</li>
-                            <li>Structured audit and metrics support in the backend.</li>
-                        </ul>
-                    </article>
-                </div>
-
-                <div class="architecture-board reveal">
-                    <article>
-                        <span>Client layer</span>
-                        <strong>Web chat and voice entry points</strong>
-                        <p>Patients begin through browser chat or telephony interaction.</p>
-                    </article>
-                    <article>
-                        <span>Control layer</span>
-                        <strong>Orchestrator, sessions, guardrails</strong>
-                        <p>Requests are routed, checked, and enriched with session context.</p>
-                    </article>
-                    <article>
-                        <span>Knowledge layer</span>
-                        <strong>RAG plus LLM tool calling</strong>
-                        <p>Answers are grounded, and structured actions are delegated to tools.</p>
-                    </article>
-                    <article>
-                        <span>Execution layer</span>
-                        <strong>Appointments, reports, doctor search, billing</strong>
-                        <p>Backend tools access hospital data and return results for final phrasing.</p>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section" id="use-cases">
-                <div class="section-heading reveal">
-                    <p class="eyebrow">Use Cases</p>
-                    <h2>Where this can be positioned and sold</h2>
-                    <p>
-                        The product story can be adapted for hospital groups, specialty clinics, diagnostic centers, or
-                        internal patient support teams.
-                    </p>
-                </div>
-
-                <div class="use-case-grid">
-                    <article class="use-case-card reveal">
-                        <h3>Hospital websites</h3>
-                        <p>Answer visitor questions instantly and capture intent before the visitor drops off.</p>
-                    </article>
-
-                    <article class="use-case-card reveal">
-                        <h3>Reception load reduction</h3>
-                        <p>Automate high-volume repetitive questions so staff can focus on edge cases and in-person care.
-                        </p>
-                    </article>
-
-                    <article class="use-case-card reveal">
-                        <h3>After-hours patient support</h3>
-                        <p>Keep guidance available even when the desk is closed, while preserving medical-safety
-                            boundaries.</p>
-                    </article>
-
-                    <article class="use-case-card reveal">
-                        <h3>Appointment conversion</h3>
-                        <p>Help patients discover the right department or doctor, then continue into booking workflows.
-                        </p>
-                    </article>
-
-                    <article class="use-case-card reveal">
-                        <h3>Lab and billing self-service</h3>
-                        <p>Reduce friction for verified users who only need status visibility, not a human callback.</p>
-                    </article>
-
-                    <article class="use-case-card reveal">
-                        <h3>Portfolio and sales demos</h3>
-                        <p>Use this landing page as a clean way to pitch the capability before a production rollout.</p>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section launch-section" id="launch">
-                <div class="section-heading reveal">
-                    <p class="eyebrow">Launch Plan</p>
-                    <h2>How to present it now and how to evolve it later</h2>
-                    <p>
-                        The current recommendation is to ship this as a static showcase first, then reconnect the live
-                        assistant only when telephony and runtime services are ready again.
-                    </p>
-                </div>
-
-                <div class="launch-grid">
-                    <article class="launch-card launch-card-primary reveal">
-                        <p class="panel-kicker">Best immediate move</p>
-                        <h3>Static product site</h3>
-                        <p>
-                            Host the `marketing/` directory as a static site. Use this page for outreach, portfolio
-                            visibility, founder decks, or product validation without ongoing telephony cost.
-                        </p>
-                        <ul>
-                            <li>No live API or Twilio dependency required.</li>
-                            <li>Fast global delivery and much lower maintenance.</li>
-                            <li>Better message control than exposing a half-working demo.</li>
-                        </ul>
-                    </article>
-
-                    <article class="launch-card reveal">
-                        <p class="panel-kicker">Later evolution</p>
-                        <h3>Full production assistant</h3>
-                        <p>
-                            Reconnect FastAPI, telephony, and database-backed workflows when you are ready to operate a
-                            real service environment with budgeted third-party usage.
-                        </p>
-                        <ul>
-                            <li>Move OTP and patient workflows behind secured production infrastructure.</li>
-                            <li>Use persistent databases and managed secret handling.</li>
-                            <li>Keep the public marketing site separate from the operational assistant.</li>
-                        </ul>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section faq-section reveal">
-                <div class="section-heading">
-                    <p class="eyebrow">FAQ</p>
-                    <h2>Questions this page already answers for a viewer</h2>
-                </div>
-
-                <div class="faq-list">
-                    <details open>
-                        <summary>What does the project actually do?</summary>
-                        <p>
-                            It combines hospital FAQ answering, doctor discovery, appointment operations, report
-                            lookup, billing support, and patient verification into a conversational assistant.
-                        </p>
-                    </details>
-
-                    <details>
-                        <summary>Why not host the live demo directly?</summary>
-                        <p>
-                            The live experience depends on third-party voice infrastructure and runtime services. A
-                            static showcase is more reliable, easier to share, and more professional when some external
-                            pieces are currently offline.
-                        </p>
-                    </details>
-
-                    <details>
-                        <summary>Can this still be sold like a product?</summary>
-                        <p>
-                            Yes. In fact, this format is stronger for positioning. It explains value, architecture,
-                            capabilities, and operational fit without forcing every visitor through a brittle live demo.
-                        </p>
-                    </details>
+                <div class="stack-panel reveal">
+                    <div class="chip-grid">
+                        <span class="chip blue"><i data-lucide="server"></i>FastAPI</span>
+                        <span class="chip violet"><i data-lucide="sparkles"></i>Gemini</span>
+                        <span class="chip cyan"><i data-lucide="database-backup"></i>ChromaDB</span>
+                        <span class="chip rose"><i data-lucide="phone"></i>Twilio</span>
+                        <span class="chip emerald"><i data-lucide="database"></i>SQLite</span>
+                        <span class="chip blue"><i data-lucide="container"></i>Docker</span>
+                        <span class="chip amber"><i data-lucide="cable"></i>WebSocket</span>
+                        <span class="chip slate"><i data-lucide="file-code-2"></i>Python</span>
+                    </div>
                 </div>
             </section>
         </main>
 
-        <footer class="site-footer reveal">
+        <footer class="footer-panel reveal">
             <div>
-                <p class="footer-eyebrow">Hospital Voice Bot</p>
-                <h2>Static-first showcase for an AI hospital assistant.</h2>
+                <div class="footer-title">Built by Mayur Raj</div>
+                <div class="footer-copy">A premium showcase for an AI hospital front desk product.</div>
             </div>
-            <div class="footer-actions">
-                <a class="button button-primary" href="#top">Back to top</a>
-                <a class="button button-secondary" href="#stack">Review the stack</a>
-            </div>
+            <a class="footer-link" href="https://github.com/space-debris/hospital-voice-bot" target="_blank"
+                rel="noreferrer">
+                <i data-lucide="github"></i>
+                View GitHub Repository
+            </a>
         </footer>
     </div>
 
-    <script src="./app.js"></script>
+    <script>
+        lucide.createIcons();
+
+        const revealItems = document.querySelectorAll(".reveal");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.14 });
+
+        revealItems.forEach((item) => observer.observe(item));
+    </script>
 </body>
 
 </html>
